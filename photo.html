@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>For My Love ❤️</title>
 
@@ -19,37 +19,44 @@
 body{
   margin:0;
   font-family: system-ui,-apple-system,sans-serif;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  overflow-x:hidden;
+  background: linear-gradient(-45deg,var(--bg1),var(--bg2),#ffe6f0,#fff5f9);
+  background-size:400% 400%;
+  animation:grad 12s ease infinite;
   text-align:center;
+  overflow-x:hidden;
 }
 
-/* ================= CARD ================= */
+@keyframes grad{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* ================= CONTAINER ================= */
 .container{
   max-width:420px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
 /* ================= TITLE ================= */
 h1{
   color:var(--primary);
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
 
 #countdown{
   font-size:13px;
   opacity:.75;
-  margin-bottom:15px;
+  margin-bottom:12px;
 }
 
 /* ================= SMALL GALLERY ================= */
 .slider{
-  width:85%;
-  margin:0 auto 18px;
   overflow:hidden;
   border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  margin:14px 0;
+  box-shadow:0 8px 22px rgba(0,0,0,.15);
 }
 
 .slides{
@@ -59,12 +66,12 @@ h1{
 
 .slides img{
   width:100%;
-  height:200px;  /* smaller */
-  object-fit:cover;
+  height:200px;
+  object-fit:cover; /* works for ANY orientation */
   flex-shrink:0;
 }
 
-/* ================= PASSWORD ================= */
+/* ================= INPUT ================= */
 input{
   padding:10px;
   border-radius:12px;
@@ -75,11 +82,12 @@ button{
   padding:10px 18px;
   border:none;
   border-radius:30px;
-  background:var(--primary);
+  background:linear-gradient(45deg,var(--primary),#ff8fa3);
   color:white;
+  font-weight:bold;
 }
 
-/* ================= LETTER SECTION ================= */
+/* ================= LETTER ================= */
 .letterBox{
   background:white;
   border-radius:18px;
@@ -87,17 +95,16 @@ button{
   margin-top:20px;
   box-shadow:0 8px 20px rgba(0,0,0,.12);
   position:relative;
+  min-height:80px;
 }
 
 .arrow{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:var(--primary);
-  color:white;
-  border-radius:50%;
   width:32px;
   height:32px;
+  border-radius:50%;
 }
 
 .left{left:-15px}
@@ -106,11 +113,19 @@ button{
 /* ================= YES/NO ================= */
 .btn-group{
   position:relative;
-  margin-top:20px;
+  margin-top:18px;
 }
 
 #noBtn{
   position:absolute;
+}
+
+/* ================= FINAL MESSAGE ================= */
+#finalMessage{
+  margin-top:25px;
+  font-size:22px;
+  color:var(--primary);
+  font-weight:bold;
 }
 
 /* ================= HEARTS ================= */
@@ -138,15 +153,18 @@ button{
 <h1 id="title"></h1>
 <div id="countdown"></div>
 
-<!-- small gallery -->
+<!-- gallery -->
 <div class="slider">
   <div id="slides" class="slides"></div>
 </div>
 
-<input id="passwordInput" placeholder="Secret password ❤️">
-<button onclick="checkPassword()">Unlock</button>
+<!-- unlock -->
+<div id="unlockBox">
+  <input id="passwordInput" placeholder="Secret password ❤️">
+  <button onclick="checkPassword()">Unlock</button>
+</div>
 
-<!-- letter story -->
+<!-- story -->
 <div id="secretSection" class="hidden">
 
   <div class="letterBox">
@@ -155,50 +173,67 @@ button{
     <button class="arrow right" onclick="nextMsg()">›</button>
   </div>
 
-  <h3 style="margin-top:20px;">Will you be my Valentine?</h3>
+  <h3 id="questionText" style="margin-top:18px;"></h3>
 
-  <div class="btn-group">
+  <div id="buttons" class="btn-group">
     <button id="yesBtn">YES 💖</button>
     <button id="noBtn">NO 🙈</button>
   </div>
 
 </div>
 
+<h2 id="finalMessage" class="hidden"></h2>
+
 </div>
 
 <audio id="loveAudio"></audio>
 
 <script>
-/* ================= CONFIG ================= */
-const CONFIG={
-  name:"Aishu ❤️ Srinath",
-  password:"forever",
-  date:"2026-02-14",
+/* =================================================
+   ❤️ CONFIG — ONLY EDIT THIS
+================================================= */
 
-  messages:[
-    "From the first day I met you, something felt special ❤️",
-    "Every laugh, every moment, every memory with you is my favorite.",
-    "You make my world brighter and my heart calmer.",
-    "So today I just want to ask you something very important…"
+const CONFIG = {
+  name: "Aishu ❤️ Srinath",
+  password: "forever",
+  date: "2026-02-14",
+
+  messages: [
+    "From the first day I met you, something felt different ❤️",
+    "Every moment with you became my favorite memory.",
+    "You make my life calmer, happier and brighter.",
+    "There is only one thing my heart wants to ask you…"
   ],
 
-  photos:[
+  question: "Will you be my Valentine?",
+
+  successMessage: "She said YES ❤️✨\nTogether Forever 💍",
+
+  photos: [
     "photos/1.jpg",
     "photos/2.jpg",
     "photos/3.jpg"
   ],
 
-  audio:"songs/love_song.mp3"
+  audio: "songs/love.mp3"
 };
 
 
-/* INIT */
-title.innerText=CONFIG.name;
-loveAudio.src=CONFIG.audio;
+/* =================================================
+   INIT
+================================================= */
 
-/* ================= COUNTDOWN ================= */
+title.innerText = CONFIG.name;
+questionText.innerText = CONFIG.question;
+loveAudio.src = CONFIG.audio;
+
+
+/* =================================================
+   COUNTDOWN
+================================================= */
+
 function updateCountdown(){
-  const diff=new Date(CONFIG.date)-new Date();
+  const diff = new Date(CONFIG.date) - new Date();
   const d=Math.floor(diff/86400000);
   const h=Math.floor(diff/3600000)%24;
   const m=Math.floor(diff/60000)%60;
@@ -208,30 +243,42 @@ updateCountdown();
 setInterval(updateCountdown,60000);
 
 
-/* ================= GALLERY ================= */
+/* =================================================
+   GALLERY
+================================================= */
+
 CONFIG.photos.forEach(src=>{
   const img=document.createElement("img");
   img.src=src;
   slides.appendChild(img);
 });
 
-let current=0;
+let slideIndex=0;
 setInterval(()=>{
-  current=(current+1)%CONFIG.photos.length;
-  slides.style.transform=`translateX(-${current*100}%)`;
+  slideIndex=(slideIndex+1)%CONFIG.photos.length;
+  slides.style.transform=`translateX(-${slideIndex*100}%)`;
 },3000);
 
 
-/* ================= PASSWORD ================= */
+/* =================================================
+   PASSWORD
+================================================= */
+
 function checkPassword(){
   if(passwordInput.value===CONFIG.password){
+    unlockBox.classList.add("hidden");
     secretSection.classList.remove("hidden");
     showMsg(0);
+  } else {
+    alert("Wrong password 😝");
   }
 }
 
 
-/* ================= MESSAGE STORY ================= */
+/* =================================================
+   STORY MESSAGES
+================================================= */
+
 let msgIndex=0;
 
 function showMsg(i){
@@ -239,25 +286,46 @@ function showMsg(i){
   letterText.innerText=CONFIG.messages[msgIndex];
 }
 
-function nextMsg(){ showMsg(msgIndex+1) }
-function prevMsg(){ showMsg(msgIndex-1) }
+function nextMsg(){ showMsg(msgIndex+1); }
+function prevMsg(){ showMsg(msgIndex-1); }
 
 
-/* ================= NO BUTTON RUN ================= */
+/* =================================================
+   NO BUTTON RUN
+================================================= */
+
 noBtn.onmouseover=noBtn.ontouchstart=()=>{
-  noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`
+  noBtn.style.transform=`translate(${Math.random()*220-110}px,${Math.random()*140-70}px)`
 };
 
 
-/* ================= YES ================= */
-yesBtn.onclick=()=>{
+/* =================================================
+   YES CLICK — CELEBRATION MODE
+================================================= */
+
+yesBtn.onclick = () => {
+
   loveAudio.play();
-  confetti({particleCount:250,spread:120});
-  alert("She said YES ❤️✨");
+
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+
+  // hide everything
+  secretSection.classList.add("hidden");
+
+  // show final message
+  finalMessage.innerText = CONFIG.successMessage;
+  finalMessage.classList.remove("hidden");
 };
 
 
-/* ================= HEARTS ================= */
+/* =================================================
+   FLOATING HEARTS
+================================================= */
+
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -266,6 +334,7 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },300);
+
 </script>
 
 </body>
