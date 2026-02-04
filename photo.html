@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
 <title>For My Love ❤️</title>
 
@@ -15,63 +15,47 @@
   --bg2:#ffe3ec;
 }
 
-/* ================= BACKGROUND ================= */
+/* ===== Background ===== */
 body{
   margin:0;
-  font-family: system-ui,-apple-system,sans-serif;
-  background: linear-gradient(-45deg,var(--bg1),var(--bg2),#ffe6f0,#fff5f9);
-  background-size:400% 400%;
-  animation:grad 12s ease infinite;
+  font-family:system-ui,-apple-system,sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
   text-align:center;
   overflow-x:hidden;
 }
 
-@keyframes grad{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* ================= CONTAINER ================= */
+/* ===== Container ===== */
 .container{
   max-width:420px;
   margin:auto;
   padding:18px;
 }
 
-/* ================= TITLE ================= */
-h1{
-  color:var(--primary);
-  margin-bottom:6px;
-}
+h1{color:var(--primary)}
 
 #countdown{
   font-size:13px;
-  opacity:.75;
-  margin-bottom:12px;
+  opacity:.7;
 }
 
-/* ================= SMALL GALLERY ================= */
+/* ===== Gallery ===== */
 .slider{
   overflow:hidden;
   border-radius:18px;
   margin:14px 0;
-  box-shadow:0 8px 22px rgba(0,0,0,.15);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
-.slides{
-  display:flex;
-  transition:.4s;
-}
+.slides{display:flex;transition:.4s}
 
 .slides img{
   width:100%;
   height:200px;
-  object-fit:cover; /* works for ANY orientation */
+  object-fit:cover;
   flex-shrink:0;
 }
 
-/* ================= INPUT ================= */
+/* ===== Inputs ===== */
 input{
   padding:10px;
   border-radius:12px;
@@ -82,53 +66,65 @@ button{
   padding:10px 18px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(45deg,var(--primary),#ff8fa3);
+  background:var(--primary);
   color:white;
-  font-weight:bold;
 }
 
-/* ================= LETTER ================= */
+/* ===== Story ===== */
 .letterBox{
   background:white;
   border-radius:18px;
   padding:20px;
-  margin-top:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  margin-top:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
   position:relative;
-  min-height:80px;
 }
 
 .arrow{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  width:32px;
-  height:32px;
-  border-radius:50%;
+  width:30px;height:30px;border-radius:50%;
 }
 
-.left{left:-15px}
-.right{right:-15px}
+.left{left:-12px}
+.right{right:-12px}
 
-/* ================= YES/NO ================= */
-.btn-group{
-  position:relative;
-  margin-top:18px;
-}
+.btn-group{position:relative;margin-top:15px}
+#noBtn{position:absolute}
 
-#noBtn{
-  position:absolute;
-}
-
-/* ================= FINAL MESSAGE ================= */
-#finalMessage{
+/* ===== Final Video Section ===== */
+#videoSection{
+  display:none;
   margin-top:25px;
-  font-size:22px;
+  animation:fadeIn 1.2s ease;
+}
+
+#finalTitle{
+  font-size:26px;
   color:var(--primary);
   font-weight:bold;
+  margin-bottom:5px;
 }
 
-/* ================= HEARTS ================= */
+#finalSub{
+  font-size:15px;
+  opacity:.8;
+  margin-bottom:12px;
+}
+
+video{
+  width:100%;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1}
+}
+
+/* ===== Hearts ===== */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -153,18 +149,15 @@ button{
 <h1 id="title"></h1>
 <div id="countdown"></div>
 
-<!-- gallery -->
 <div class="slider">
   <div id="slides" class="slides"></div>
 </div>
 
-<!-- unlock -->
 <div id="unlockBox">
   <input id="passwordInput" placeholder="Secret password ❤️">
   <button onclick="checkPassword()">Unlock</button>
 </div>
 
-<!-- story -->
 <div id="secretSection" class="hidden">
 
   <div class="letterBox">
@@ -173,67 +166,70 @@ button{
     <button class="arrow right" onclick="nextMsg()">›</button>
   </div>
 
-  <h3 id="questionText" style="margin-top:18px;"></h3>
+  <h3 id="questionText"></h3>
 
-  <div id="buttons" class="btn-group">
+  <div class="btn-group">
     <button id="yesBtn">YES 💖</button>
     <button id="noBtn">NO 🙈</button>
   </div>
 
 </div>
 
-<h2 id="finalMessage" class="hidden"></h2>
+<!-- FINAL SECTION -->
+<div id="videoSection">
+  <div id="finalTitle"></div>
+  <div id="finalSub"></div>
+  <video id="loveVideo" controls></video>
+</div>
 
 </div>
 
 <audio id="loveAudio"></audio>
 
 <script>
-/* =================================================
-   ❤️ CONFIG — ONLY EDIT THIS
-================================================= */
+/* ================= CONFIG ================= */
 
-const CONFIG = {
-  name: "Aishu ❤️ Srinath",
-  password: "forever",
-  date: "2026-02-14",
+const CONFIG={
+  name:"Naga ❤️ Priya",
+  password:"forever",
+  date:"2026-02-14",
 
-  messages: [
-    "From the first day I met you, something felt different ❤️",
+  messages:[
+    "From the first day I met you, something felt special ❤️",
     "Every moment with you became my favorite memory.",
-    "You make my life calmer, happier and brighter.",
-    "There is only one thing my heart wants to ask you…"
+    "You make my life brighter and happier.",
+    "So today… I want to ask you something important…"
   ],
 
-  question: "Will you be my Valentine?",
+  question:"Will you be my Valentine?",
 
-  successMessage: "She said YES ❤️✨\nTogether Forever 💍",
+  finalTitle:"She said YES ❤️✨",
+  finalSub:"Together Forever 💍",
 
-  photos: [
-    "photos/1.jpg",
-    "photos/2.jpg",
-    "photos/3.jpg"
+  photos:[
+    "assets/photos/1.jpg",
+    "assets/photos/2.jpg",
+    "assets/photos/3.jpg"
   ],
 
-  audio: "songs/love.mp3"
+  audio:"assets/songs/song1.mp3",
+  video:"assets/videos/video.mp4"
 };
 
 
-/* =================================================
-   INIT
-================================================= */
+/* INIT */
+title.innerText=CONFIG.name;
+questionText.innerText=CONFIG.question;
+finalTitle.innerText=CONFIG.finalTitle;
+finalSub.innerText=CONFIG.finalSub;
 
-title.innerText = CONFIG.name;
-questionText.innerText = CONFIG.question;
-loveAudio.src = CONFIG.audio;
+loveAudio.src=CONFIG.audio;
+loveVideo.src=CONFIG.video;
 
 
-/* =================================================
-   COUNTDOWN
-================================================= */
-
+/* COUNTDOWN */
 function updateCountdown(){
-  const diff = new Date(CONFIG.date) - new Date();
+  const diff=new Date(CONFIG.date)-new Date();
   const d=Math.floor(diff/86400000);
   const h=Math.floor(diff/3600000)%24;
   const m=Math.floor(diff/60000)%60;
@@ -243,10 +239,7 @@ updateCountdown();
 setInterval(updateCountdown,60000);
 
 
-/* =================================================
-   GALLERY
-================================================= */
-
+/* GALLERY */
 CONFIG.photos.forEach(src=>{
   const img=document.createElement("img");
   img.src=src;
@@ -260,72 +253,49 @@ setInterval(()=>{
 },3000);
 
 
-/* =================================================
-   PASSWORD
-================================================= */
-
+/* PASSWORD */
 function checkPassword(){
   if(passwordInput.value===CONFIG.password){
     unlockBox.classList.add("hidden");
     secretSection.classList.remove("hidden");
     showMsg(0);
-  } else {
-    alert("Wrong password 😝");
   }
 }
 
 
-/* =================================================
-   STORY MESSAGES
-================================================= */
-
+/* STORY */
 let msgIndex=0;
 
 function showMsg(i){
   msgIndex=(i+CONFIG.messages.length)%CONFIG.messages.length;
   letterText.innerText=CONFIG.messages[msgIndex];
 }
+function nextMsg(){showMsg(msgIndex+1)}
+function prevMsg(){showMsg(msgIndex-1)}
 
-function nextMsg(){ showMsg(msgIndex+1); }
-function prevMsg(){ showMsg(msgIndex-1); }
 
-
-/* =================================================
-   NO BUTTON RUN
-================================================= */
-
+/* NO RUN */
 noBtn.onmouseover=noBtn.ontouchstart=()=>{
   noBtn.style.transform=`translate(${Math.random()*220-110}px,${Math.random()*140-70}px)`
 };
 
 
-/* =================================================
-   YES CLICK — CELEBRATION MODE
-================================================= */
+/* YES */
+yesBtn.onclick=()=>{
+  confetti({particleCount:300,spread:120});
+  secretSection.style.display="none";
 
-yesBtn.onclick = () => {
+  videoSection.style.display="block";
 
+  loveAudio.volume=0.02;
   loveAudio.play();
 
-  confetti({
-    particleCount: 300,
-    spread: 120,
-    origin: { y: 0.6 }
-  });
-
-  // hide everything
-  secretSection.classList.add("hidden");
-
-  // show final message
-  finalMessage.innerText = CONFIG.successMessage;
-  finalMessage.classList.remove("hidden");
+  loveVideo.volume=0.08;
+  loveVideo.play();
 };
 
 
-/* =================================================
-   FLOATING HEARTS
-================================================= */
-
+/* HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -334,7 +304,6 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },300);
-
 </script>
 
 </body>
