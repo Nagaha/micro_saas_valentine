@@ -211,6 +211,11 @@ const CONFIG={
     "assets/photos/2.jpg",
     "assets/photos/3.jpg"
   ],
+   theme: {
+    primary: "#9d4edd",   // buttons, hearts, accents
+    bg1: "#f3e8ff",      // background gradient start
+    bg2: "#e9d5ff"       // background gradient end
+  },
 
   audio:"assets/songs/song1.mp3",
   video:"assets/videos/video.mp4"
@@ -225,6 +230,11 @@ finalSub.innerText=CONFIG.finalSub;
 
 loveAudio.src=CONFIG.audio;
 loveVideo.src=CONFIG.video;
+
+document.documentElement.style.setProperty('--primary', CONFIG.theme.primary);
+document.documentElement.style.setProperty('--bg1', CONFIG.theme.bg1);
+document.documentElement.style.setProperty('--bg2', CONFIG.theme.bg2);
+
 
 
 /* COUNTDOWN */
