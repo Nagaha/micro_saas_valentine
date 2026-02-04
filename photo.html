@@ -190,7 +190,7 @@ video{
 /* ================= CONFIG ================= */
 
 const CONFIG={
-  name:"Aishu ❤️ Srinath",
+  name:"Remo ❤️ Selfie",
   password:"forever",
   date:"2026-02-14",
 
@@ -201,15 +201,15 @@ const CONFIG={
     "So today… I want to ask you something important…"
   ],
 
-  question:"Will you be my Valentine?",
+  question:"Eanaku ok Solluviya? 💖",
 
   finalTitle:"She said YES ❤️✨",
   finalSub:"Together Forever 💍",
 
   photos:[
-    "assets/photos/1.jpg",
-    "assets/photos/2.jpg",
-    "assets/photos/3.jpg"
+    "assets/photos/image.jpg"
+    // "assets/photos/2.jpg",
+    // "assets/photos/3.jpg"
   ],
    theme: {
     primary: "#9d4edd",   // buttons, hearts, accents
@@ -218,7 +218,7 @@ const CONFIG={
   },
 
   audio:"assets/songs/song1.mp3",
-  video:"assets/videos/video.mp4"
+  video:"assets/videos/remo1.mp4"
 };
 
 
@@ -269,6 +269,10 @@ function checkPassword(){
     unlockBox.classList.add("hidden");
     secretSection.classList.remove("hidden");
     showMsg(0);
+    loveAudio.volume=0.02;
+    loveAudio.play();
+  } else {
+    alert("Wrong love password 💔");
   }
 }
 
@@ -297,8 +301,7 @@ yesBtn.onclick=()=>{
 
   videoSection.style.display="block";
 
-  loveAudio.volume=0.02;
-  loveAudio.play();
+  loveAudio.pause()
 
   loveVideo.volume=0.08;
   loveVideo.play();
